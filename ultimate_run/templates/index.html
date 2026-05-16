@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ultimate Run - Home</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="card text-center">
+            <h1>Welcome to Ultimate Run</h1>
+            <p class="text-muted">Your quick and easy way to request or fulfill deliveries in the hostel.</p>
+            <div>
+                <a href="{{ url_for('request_item') }}" class="btn btn-custom m-2">Make a Request</a>
+                <a href="{{ url_for('my_requests') }}" class="btn btn-secondary m-2">My Requests</a>
+                <a href="{{ url_for('open_requests') }}" class="btn btn-info text-white m-2">Open Requests</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
