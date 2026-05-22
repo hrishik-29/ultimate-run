@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ultimate Run — Campus Delivery Platform</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+body{font-family:'Inter',sans-serif;background:#fff8f0;min-height:100vh;}
+.nav-pills .nav-link{color:#6b7280;font-weight:500;border-radius:10px;padding:8px 20px;}
+.nav-pills .nav-link.active{background:#f59e0b;color:#fff;}
+.hero-bg{background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;border-radius:0 0 2rem 2rem;}
+.card{border:none;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .2s;}
+.card:hover{transform:translateY(-2px);}
+.btn-amber{background:#f59e0b;color:#fff;border:none;font-weight:600;}
+.btn-amber:hover{background:#d97706;color:#fff;}
+.badge-open{background:#dcfce7;color:#16a34a;font-weight:600;}
+.badge-accepted{background:#dbeafe;color:#2563eb;font-weight:600;}
+.fade-in{animation:fadeIn .4s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.tip-badge{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#fff;font-size:.75rem;padding:2px 8px;border-radius:20px;}
+</style>
+</head>
+<body>
+<!-- Navbar -->
+<nav class="navbar navbar-expand-md bg-white shadow-sm sticky-top">
+<div class="container">
+<a class="navbar-brand fw-bold" href="#"><i class="fas fa-running text-warning me-2"></i>Ultimate Run</a>
+<ul class="nav nav-pills" id="main-nav">
+<li class="nav-item"><a class="nav-link active" href="#" onclick="showTab('home',this);return false">Home</a></li>
+<li class="nav-item"><a class="nav-link" href="#" onclick="showTab('request',this);return false">Make Request</a></li>
+<li class="nav-item"><a class="nav-link" href="#" onclick="showTab('my',this);return false">My Requests</a></li>
+<li class="nav-item"><a class="nav-link" href="#" onclick="showTab('open',this);return false">Open Requests</a></li>
+</ul>
+</div>
+</nav>
+
+<!-- Home -->
+<div id="tab-home" class="tab-content">
+<section class="hero-bg py-5">
+<div class="container text-center py-4">
+<h1 class="display-5 fw-bold mb-3">🏃 Campus Delivery, Made Easy</h1>
+<p class="lead opacity-90 mb-4">Need something from the canteen, shop, or laundry? Post a request and a fellow student will deliver it to your room!</p>
+<div class="d-flex gap-3 justify-content-center flex-wrap">
+<button onclick="showTab('request',document.querySelector('[onclick*=request]'))" class="btn btn-light btn-lg fw-semibold px-4">📝 Make a Request</button>
+<button onclick="showTab('open',document.querySelector('[onclick*=open]'))" class="btn btn-outline-light btn-lg fw-semibold px-4">📋 View Open Requests</button>
+</div>
+</div>
+</section>
+<div class="container py-5">
+<div class="row g-4 text-center">
+<div class="col-md-4 fade-in"><div class="card p-4"><div class="fs-1 mb-2">📝</div><h5>Post a Request</h5><p class="text-muted small">Describe what you need and where to deliver.</p></div></div>
+<div class="col-md-4 fade-in"><div class="card p-4"><div class="fs-1 mb-2">🤝</div><h5>Someone Accepts</h5><p class="text-muted small">A helper picks up your request voluntarily.</p></div></div>
+<div class="col-md-4 fade-in"><div class="card p-4"><div class="fs-1 mb-2">🎉</div><h5>Get It Delivered</h5><p class="text-muted small">Your item arrives at your room. Add a tip!</p></div></div>
+</div>
+</div>
+</div>
+
+<!-- Make Request -->
+<div id="tab-request" class="tab-content d-none">
+<div class="container py-5" style="max-width:600px;">
+<h2 class="fw-bold mb-4">📝 Make a Request</h2>
+<div class="card p-4 fade-in">
+<form onsubmit="submitRequest(event)">
+<div class="mb-3"><label class="form-label fw-medium">Your Name</label><input type="text" class="form-control" id="req-name" required></div>
+<div class="mb-3"><label class="form-label fw-medium">Room Number</label><input type="text" class="form-control" id="req-room" required placeholder="e.g. B-204"></div>
+<div class="mb-3"><label class="form-label fw-medium">Contact Number</label><input type="tel" class="form-control" id="req-contact" required></div>
+<div class="mb-3"><label class="form-label fw-medium">What do you need?</label><textarea class="form-control" id="req-items" rows="3" required placeholder="e.g. 2 bottles of water from canteen, 1 packet of chips"></textarea></div>
+<div class="mb-3"><label class="form-label fw-medium">Tip Amount (₹) <span class="text-muted">(optional)</span></label><input type="number" class="form-control" id="req-tip" placeholder="0" min="0"></div>
+<button type="submit" class="btn btn-amber w-100 py-2">Submit Request</button>
+</form>
+</div>
+</div>
+</div>
+
+<!-- My Requests -->
+<div id="tab-my" class="tab-content d-none">
+<div class="container py-5" style="max-width:700px;">
+<h2 class="fw-bold mb-4">📋 My Requests</h2>
+<div id="my-list"></div>
+</div>
+</div>
+
+<!-- Open Requests -->
+<div id="tab-open" class="tab-content d-none">
+<div class="container py-5" style="max-width:700px;">
+<h2 class="fw-bold mb-4">🔓 Open Requests</h2>
+<div id="open-list"></div>
+</div>
+</div>
+
+<!-- Accept Modal -->
+<div class="modal fade" id="acceptModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content border-0 rounded-4">
+<div class="modal-header border-0"><h5 class="modal-title fw-bold">Accept This Request</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
+<div class="modal-body">
+<p class="text-muted small mb-3" id="accept-desc"></p>
+<form onsubmit="confirmAccept(event)">
+<input type="hidden" id="accept-id">
+<div class="mb-3"><label class="form-label fw-medium">Your Name</label><input type="text" class="form-control" id="helper-name" required></div>
+<div class="mb-3"><label class="form-label fw-medium">Your Contact</label><input type="tel" class="form-control" id="helper-contact" required></div>
+<button type="submit" class="btn btn-amber w-100 py-2">Confirm Accept</button>
+</form>
+</div>
+</div></div></div>
+
+<!-- Toast -->
+<div class="position-fixed bottom-0 end-0 p-3" style="z-index:9999">
+<div id="toast" class="toast align-items-center text-bg-success border-0 rounded-3" role="alert">
+<div class="d-flex"><div class="toast-body fw-medium" id="toast-msg"></div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button></div>
+</div></div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+const SESSION_KEY='ur_session_'+Math.random().toString(36).substr(2,6);
+let sessionId=sessionStorage.getItem('ur_sid');
+if(!sessionId){sessionId=Date.now().toString();sessionStorage.setItem('ur_sid',sessionId);}
+
+// Seed sample data on first load
+if(!localStorage.getItem('ur_requests')){
+  localStorage.setItem('ur_requests',JSON.stringify([
+    {id:1,name:"Rahul",room:"A-105",contact:"9876543210",items:"2 bottles of water and 1 packet of Maggi from canteen",tip:20,status:"Open",sid:"seed1",helper_name:"",helper_contact:""},
+    {id:2,name:"Priya",room:"C-302",contact:"9812345678",items:"Pick up my laundry from ground floor washing area",tip:15,status:"Open",sid:"seed2",helper_name:"",helper_contact:""},
+    {id:3,name:"Aditya",room:"B-210",contact:"9988776655",items:"Need a printout of 10 pages from Xerox shop near gate",tip:30,status:"Open",sid:"seed3",helper_name:"",helper_contact:""},
+    {id:4,name:"Sneha",room:"D-108",contact:"9123456789",items:"1 coffee and 1 samosa from Nescafe counter",tip:10,status:"Open",sid:"seed4",helper_name:"",helper_contact:""},
+    {id:5,name:"Karthik",room:"A-401",contact:"9876501234",items:"Bring my charger from Room B-203 (door is open, on the desk)",tip:0,status:"Open",sid:"seed5",helper_name:"",helper_contact:""}
+  ]));
+}
+
+function getRequests(){return JSON.parse(localStorage.getItem('ur_requests')||'[]');}
+function saveRequests(r){localStorage.setItem('ur_requests',JSON.stringify(r));}
+
+function showTab(t,el){
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.add('d-none'));
+  document.getElementById('tab-'+t).classList.remove('d-none');
+  document.querySelectorAll('#main-nav .nav-link').forEach(l=>l.classList.remove('active'));
+  if(el)el.classList.add('active');
+  if(t==='my')renderMy();if(t==='open')renderOpen();
+}
+
+function submitRequest(e){
+  e.preventDefault();
+  const r=getRequests();
+  r.push({id:Date.now(),name:document.getElementById('req-name').value,room:document.getElementById('req-room').value,contact:document.getElementById('req-contact').value,items:document.getElementById('req-items').value,tip:+(document.getElementById('req-tip').value||0),status:'Open',sid:sessionId,helper_name:'',helper_contact:''});
+  saveRequests(r);e.target.reset();showToast('Request submitted!');showTab('my',document.querySelector('[onclick*=my]'));
+}
+
+function renderMy(){
+  const list=getRequests().filter(r=>r.sid===sessionId);
+  document.getElementById('my-list').innerHTML=list.length===0?'<div class="card p-4 text-center text-muted">You haven\'t made any requests yet.</div>':list.map(r=>`
+    <div class="card p-4 mb-3 fade-in">
+      <div class="d-flex justify-content-between align-items-start">
+        <div><h6 class="fw-bold mb-1">${r.items}</h6><p class="text-muted small mb-0">Room ${r.room}</p></div>
+        <span class="badge ${r.status==='Open'?'badge-open':'badge-accepted'} rounded-pill">${r.status}</span>
+      </div>
+      ${r.tip>0?`<span class="tip-badge mt-2 d-inline-block">💰 ₹${r.tip} tip</span>`:''}
+      ${r.status==='Accepted'?`<div class="mt-3 p-3 bg-light rounded-3"><p class="small mb-0 fw-medium"><i class="fas fa-user text-primary me-1"></i> Helper: ${r.helper_name}</p><p class="small mb-0 text-muted"><i class="fas fa-phone me-1"></i> ${r.helper_contact}</p></div>`:''}
+    </div>`).join('');
+}
+
+function renderOpen(){
+  const list=getRequests().filter(r=>r.status==='Open'&&r.sid!==sessionId);
+  document.getElementById('open-list').innerHTML=list.length===0?'<div class="card p-4 text-center text-muted">No open requests right now.</div>':list.map(r=>`
+    <div class="card p-4 mb-3 fade-in">
+      <div class="d-flex justify-content-between align-items-start">
+        <div>
+          <h6 class="fw-bold mb-1">${r.items}</h6>
+          <p class="text-muted small mb-1"><i class="fas fa-user me-1"></i>${r.name} · <i class="fas fa-door-open me-1"></i>Room ${r.room}</p>
+        </div>
+        ${r.tip>0?`<span class="tip-badge">💰 ₹${r.tip}</span>`:''}
+      </div>
+      <button class="btn btn-amber btn-sm mt-2" onclick="openAccept(${r.id},'${r.items.replace(/'/g,"\\'")}')">Accept Request</button>
+    </div>`).join('');
+}
+
+function openAccept(id,desc){
+  document.getElementById('accept-id').value=id;
+  document.getElementById('accept-desc').textContent='You are accepting: "'+desc+'"';
+  new bootstrap.Modal(document.getElementById('acceptModal')).show();
+}
+
+function confirmAccept(e){
+  e.preventDefault();
+  const id=+document.getElementById('accept-id').value;
+  const r=getRequests();const req=r.find(x=>x.id===id);
+  if(req){req.status='Accepted';req.helper_name=document.getElementById('helper-name').value;req.helper_contact=document.getElementById('helper-contact').value;saveRequests(r);}
+  bootstrap.Modal.getInstance(document.getElementById('acceptModal')).hide();
+  e.target.reset();showToast('Request accepted!');renderOpen();
+}
+
+function showToast(msg){
+  document.getElementById('toast-msg').textContent=msg;
+  new bootstrap.Toast(document.getElementById('toast'),{delay:3000}).show();
+}
+</script>
+</body>
+</html>
