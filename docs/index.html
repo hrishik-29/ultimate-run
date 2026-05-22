@@ -4,195 +4,172 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ultimate Run — Campus Delivery Platform</title>
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
-body{font-family:'Inter',sans-serif;background:#fff8f0;min-height:100vh;}
-.nav-pills .nav-link{color:#6b7280;font-weight:500;border-radius:10px;padding:8px 20px;}
-.nav-pills .nav-link.active{background:#f59e0b;color:#fff;}
-.hero-bg{background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;border-radius:0 0 2rem 2rem;}
-.card{border:none;border-radius:16px;box-shadow:0 2px 12px rgba(0,0,0,.06);transition:transform .2s;}
-.card:hover{transform:translateY(-2px);}
-.btn-amber{background:#f59e0b;color:#fff;border:none;font-weight:600;}
-.btn-amber:hover{background:#d97706;color:#fff;}
-.badge-open{background:#dcfce7;color:#16a34a;font-weight:600;}
-.badge-accepted{background:#dbeafe;color:#2563eb;font-weight:600;}
-.fade-in{animation:fadeIn .4s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
-.tip-badge{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#fff;font-size:.75rem;padding:2px 8px;border-radius:20px;}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#fffbeb;color:#1e293b;min-height:100vh}
+/* Nav */
+.nav{background:#fff;padding:0 24px;height:56px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 1px 4px rgba(0,0,0,.06);position:sticky;top:0;z-index:50}
+.nav-logo{font-size:1.2rem;font-weight:700;color:#d97706}
+.tabs{display:flex;gap:4px}
+.tab{padding:8px 14px;border-radius:8px;border:none;background:transparent;color:#64748b;font-size:.82rem;font-weight:500;cursor:pointer;transition:.2s}
+.tab:hover,.tab.active{background:#fef3c7;color:#d97706}
+/* Hero */
+.hero{background:linear-gradient(135deg,#f59e0b,#ea580c);color:#fff;padding:56px 24px;text-align:center}
+.hero h1{font-size:2.2rem;font-weight:800;margin-bottom:10px}
+.hero p{font-size:1rem;opacity:.9;max-width:500px;margin:0 auto 24px}
+.hero-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+.hero-btn{padding:12px 24px;border-radius:12px;font-weight:600;font-size:.88rem;cursor:pointer;transition:.2s;border:none}
+.hero-btn.primary{background:#fff;color:#d97706}
+.hero-btn.primary:hover{background:#fef3c7}
+.hero-btn.outline{background:transparent;color:#fff;border:2px solid rgba(255,255,255,.5)}
+.hero-btn.outline:hover{background:rgba(255,255,255,.1)}
+/* How it works */
+.how{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;max-width:800px;margin:0 auto;padding:32px 24px}
+.how-card{background:#fff;border-radius:14px;padding:24px;text-align:center;box-shadow:0 1px 6px rgba(0,0,0,.04)}
+.how-card .icon{font-size:2.2rem;margin-bottom:8px;display:block}
+.how-card h3{font-size:.92rem;font-weight:600;margin-bottom:4px}
+.how-card p{font-size:.78rem;color:#64748b}
+/* Container */
+.container{max-width:650px;margin:0 auto;padding:24px}
+/* Form */
+.form-card{background:#fff;border-radius:16px;padding:24px;box-shadow:0 1px 8px rgba(0,0,0,.05)}
+.fg{margin-bottom:14px}
+.fg label{display:block;font-size:.82rem;font-weight:600;color:#374151;margin-bottom:4px}
+.fg input,.fg textarea{width:100%;padding:10px 14px;border:1.5px solid #d1d5db;border-radius:10px;font-size:.88rem;outline:none;transition:.2s}
+.fg input:focus,.fg textarea:focus{border-color:#f59e0b;box-shadow:0 0 0 3px rgba(245,158,11,.12)}
+.submit-btn{width:100%;padding:12px;border:none;border-radius:12px;background:#f59e0b;color:#fff;font-weight:700;font-size:.92rem;cursor:pointer;transition:.2s}
+.submit-btn:hover{background:#d97706}
+/* Cards */
+.req-card{background:#fff;border-radius:14px;padding:18px;margin-bottom:12px;box-shadow:0 1px 6px rgba(0,0,0,.04);border-left:4px solid #f59e0b;transition:.2s}
+.req-card:hover{transform:translateY(-2px);box-shadow:0 4px 16px rgba(0,0,0,.06)}
+.req-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px}
+.req-items{font-size:.92rem;font-weight:600;margin-bottom:4px}
+.req-meta{font-size:.78rem;color:#64748b}
+.badge{display:inline-block;font-size:.7rem;font-weight:600;padding:3px 10px;border-radius:20px}
+.badge-open{background:#dcfce7;color:#16a34a}
+.badge-accepted{background:#dbeafe;color:#2563eb}
+.tip-badge{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#fff;font-size:.72rem;padding:3px 10px;border-radius:20px;font-weight:600;display:inline-block;margin-top:6px}
+.accept-btn{margin-top:10px;padding:8px 18px;border:none;border-radius:8px;background:#f59e0b;color:#fff;font-weight:600;font-size:.82rem;cursor:pointer;transition:.2s}
+.accept-btn:hover{background:#d97706}
+.helper-info{margin-top:10px;background:#f0fdf4;border-radius:10px;padding:12px;font-size:.82rem}
+.helper-info strong{color:#16a34a}
+.empty{text-align:center;color:#94a3b8;padding:40px;font-size:.9rem}
+/* Modal */
+.modal-bg{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:80;display:none;align-items:center;justify-content:center}
+.modal-bg.show{display:flex}
+.modal{background:#fff;border-radius:18px;padding:28px;width:90%;max-width:420px}
+.modal h3{font-size:1.05rem;font-weight:700;margin-bottom:14px;display:flex;justify-content:space-between;align-items:center}
+.close-btn{background:none;border:none;font-size:1.3rem;cursor:pointer;color:#64748b}
+/* Toast */
+.toast{position:fixed;bottom:20px;right:20px;background:#16a34a;color:#fff;padding:10px 18px;border-radius:10px;font-size:.82rem;font-weight:500;box-shadow:0 4px 14px rgba(0,0,0,.15);transform:translateY(80px);opacity:0;transition:.3s;z-index:90}
+.toast.show{transform:translateY(0);opacity:1}
+@media(max-width:640px){.hero h1{font-size:1.6rem}.tab{padding:6px 10px;font-size:.75rem}}
 </style>
 </head>
 <body>
-<!-- Navbar -->
-<nav class="navbar navbar-expand-md bg-white shadow-sm sticky-top">
-<div class="container">
-<a class="navbar-brand fw-bold" href="#"><i class="fas fa-running text-warning me-2"></i>Ultimate Run</a>
-<ul class="nav nav-pills" id="main-nav">
-<li class="nav-item"><a class="nav-link active" href="#" onclick="showTab('home',this);return false">Home</a></li>
-<li class="nav-item"><a class="nav-link" href="#" onclick="showTab('request',this);return false">Make Request</a></li>
-<li class="nav-item"><a class="nav-link" href="#" onclick="showTab('my',this);return false">My Requests</a></li>
-<li class="nav-item"><a class="nav-link" href="#" onclick="showTab('open',this);return false">Open Requests</a></li>
-</ul>
-</div>
+<nav class="nav">
+  <div class="nav-logo">🏃 Ultimate Run</div>
+  <div class="tabs">
+    <button class="tab active" onclick="show('home',this)">Home</button>
+    <button class="tab" onclick="show('request',this)">New Request</button>
+    <button class="tab" onclick="show('my',this)">My Requests</button>
+    <button class="tab" onclick="show('open',this)">Open</button>
+  </div>
 </nav>
 
-<!-- Home -->
-<div id="tab-home" class="tab-content">
-<section class="hero-bg py-5">
-<div class="container text-center py-4">
-<h1 class="display-5 fw-bold mb-3">🏃 Campus Delivery, Made Easy</h1>
-<p class="lead opacity-90 mb-4">Need something from the canteen, shop, or laundry? Post a request and a fellow student will deliver it to your room!</p>
-<div class="d-flex gap-3 justify-content-center flex-wrap">
-<button onclick="showTab('request',document.querySelector('[onclick*=request]'))" class="btn btn-light btn-lg fw-semibold px-4">📝 Make a Request</button>
-<button onclick="showTab('open',document.querySelector('[onclick*=open]'))" class="btn btn-outline-light btn-lg fw-semibold px-4">📋 View Open Requests</button>
+<div id="t-home">
+<div class="hero">
+  <h1>🏃 Campus Delivery, Made Easy</h1>
+  <p>Need something from the canteen, shop, or laundry? Post a request and a fellow student will deliver it to your room!</p>
+  <div class="hero-btns">
+    <button class="hero-btn primary" onclick="show('request',document.querySelectorAll('.tab')[1])">📝 Make a Request</button>
+    <button class="hero-btn outline" onclick="show('open',document.querySelectorAll('.tab')[3])">📋 View Open Requests</button>
+  </div>
 </div>
-</div>
-</section>
-<div class="container py-5">
-<div class="row g-4 text-center">
-<div class="col-md-4 fade-in"><div class="card p-4"><div class="fs-1 mb-2">📝</div><h5>Post a Request</h5><p class="text-muted small">Describe what you need and where to deliver.</p></div></div>
-<div class="col-md-4 fade-in"><div class="card p-4"><div class="fs-1 mb-2">🤝</div><h5>Someone Accepts</h5><p class="text-muted small">A helper picks up your request voluntarily.</p></div></div>
-<div class="col-md-4 fade-in"><div class="card p-4"><div class="fs-1 mb-2">🎉</div><h5>Get It Delivered</h5><p class="text-muted small">Your item arrives at your room. Add a tip!</p></div></div>
-</div>
+<div class="how">
+  <div class="how-card"><span class="icon">📝</span><h3>Post a Request</h3><p>Describe what you need and where to deliver.</p></div>
+  <div class="how-card"><span class="icon">🤝</span><h3>Someone Accepts</h3><p>A helper picks up your request voluntarily.</p></div>
+  <div class="how-card"><span class="icon">🎉</span><h3>Get It Delivered</h3><p>Your item arrives at your room. Add a tip!</p></div>
 </div>
 </div>
 
-<!-- Make Request -->
-<div id="tab-request" class="tab-content d-none">
-<div class="container py-5" style="max-width:600px;">
-<h2 class="fw-bold mb-4">📝 Make a Request</h2>
-<div class="card p-4 fade-in">
-<form onsubmit="submitRequest(event)">
-<div class="mb-3"><label class="form-label fw-medium">Your Name</label><input type="text" class="form-control" id="req-name" required></div>
-<div class="mb-3"><label class="form-label fw-medium">Room Number</label><input type="text" class="form-control" id="req-room" required placeholder="e.g. B-204"></div>
-<div class="mb-3"><label class="form-label fw-medium">Contact Number</label><input type="tel" class="form-control" id="req-contact" required></div>
-<div class="mb-3"><label class="form-label fw-medium">What do you need?</label><textarea class="form-control" id="req-items" rows="3" required placeholder="e.g. 2 bottles of water from canteen, 1 packet of chips"></textarea></div>
-<div class="mb-3"><label class="form-label fw-medium">Tip Amount (₹) <span class="text-muted">(optional)</span></label><input type="number" class="form-control" id="req-tip" placeholder="0" min="0"></div>
-<button type="submit" class="btn btn-amber w-100 py-2">Submit Request</button>
-</form>
-</div>
+<div id="t-request" style="display:none">
+<div class="container">
+  <h2 style="font-size:1.3rem;font-weight:700;margin-bottom:16px">📝 Make a Request</h2>
+  <div class="form-card">
+    <div class="fg"><label>Your Name</label><input id="r-name"></div>
+    <div class="fg"><label>Room Number</label><input id="r-room" placeholder="e.g. B-204"></div>
+    <div class="fg"><label>Contact Number</label><input id="r-contact" type="tel"></div>
+    <div class="fg"><label>What do you need?</label><textarea id="r-items" rows="3" placeholder="e.g. 2 bottles of water from canteen, 1 packet of chips"></textarea></div>
+    <div class="fg"><label>Tip Amount (₹) <span style="color:#94a3b8;font-weight:400">(optional)</span></label><input id="r-tip" type="number" placeholder="0" min="0"></div>
+    <button class="submit-btn" onclick="submitReq()">Submit Request</button>
+  </div>
 </div>
 </div>
 
-<!-- My Requests -->
-<div id="tab-my" class="tab-content d-none">
-<div class="container py-5" style="max-width:700px;">
-<h2 class="fw-bold mb-4">📋 My Requests</h2>
-<div id="my-list"></div>
+<div id="t-my" style="display:none"><div class="container"><h2 style="font-size:1.3rem;font-weight:700;margin-bottom:16px">📋 My Requests</h2><div id="my-list"></div></div></div>
+<div id="t-open" style="display:none"><div class="container"><h2 style="font-size:1.3rem;font-weight:700;margin-bottom:16px">🔓 Open Requests</h2><div id="open-list"></div></div></div>
+
+<div class="modal-bg" id="accept-modal">
+<div class="modal">
+  <h3>Accept Request <button class="close-btn" onclick="closeAccept()">✕</button></h3>
+  <p style="font-size:.82rem;color:#64748b;margin-bottom:14px" id="accept-desc"></p>
+  <div class="fg"><label>Your Name</label><input id="h-name"></div>
+  <div class="fg"><label>Your Contact</label><input id="h-contact" type="tel"></div>
+  <button class="submit-btn" onclick="confirmAccept()">Confirm Accept</button>
 </div>
 </div>
 
-<!-- Open Requests -->
-<div id="tab-open" class="tab-content d-none">
-<div class="container py-5" style="max-width:700px;">
-<h2 class="fw-bold mb-4">🔓 Open Requests</h2>
-<div id="open-list"></div>
-</div>
-</div>
+<div class="toast" id="toast"></div>
 
-<!-- Accept Modal -->
-<div class="modal fade" id="acceptModal" tabindex="-1"><div class="modal-dialog modal-dialog-centered"><div class="modal-content border-0 rounded-4">
-<div class="modal-header border-0"><h5 class="modal-title fw-bold">Accept This Request</h5><button type="button" class="btn-close" data-bs-dismiss="modal"></button></div>
-<div class="modal-body">
-<p class="text-muted small mb-3" id="accept-desc"></p>
-<form onsubmit="confirmAccept(event)">
-<input type="hidden" id="accept-id">
-<div class="mb-3"><label class="form-label fw-medium">Your Name</label><input type="text" class="form-control" id="helper-name" required></div>
-<div class="mb-3"><label class="form-label fw-medium">Your Contact</label><input type="tel" class="form-control" id="helper-contact" required></div>
-<button type="submit" class="btn btn-amber w-100 py-2">Confirm Accept</button>
-</form>
-</div>
-</div></div></div>
-
-<!-- Toast -->
-<div class="position-fixed bottom-0 end-0 p-3" style="z-index:9999">
-<div id="toast" class="toast align-items-center text-bg-success border-0 rounded-3" role="alert">
-<div class="d-flex"><div class="toast-body fw-medium" id="toast-msg"></div><button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast"></button></div>
-</div></div>
-
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 <script>
-const SESSION_KEY='ur_session_'+Math.random().toString(36).substr(2,6);
-let sessionId=sessionStorage.getItem('ur_sid');
-if(!sessionId){sessionId=Date.now().toString();sessionStorage.setItem('ur_sid',sessionId);}
-
-// Seed sample data on first load
-if(!localStorage.getItem('ur_requests')){
-  localStorage.setItem('ur_requests',JSON.stringify([
-    {id:1,name:"Rahul",room:"A-105",contact:"9876543210",items:"2 bottles of water and 1 packet of Maggi from canteen",tip:20,status:"Open",sid:"seed1",helper_name:"",helper_contact:""},
-    {id:2,name:"Priya",room:"C-302",contact:"9812345678",items:"Pick up my laundry from ground floor washing area",tip:15,status:"Open",sid:"seed2",helper_name:"",helper_contact:""},
-    {id:3,name:"Aditya",room:"B-210",contact:"9988776655",items:"Need a printout of 10 pages from Xerox shop near gate",tip:30,status:"Open",sid:"seed3",helper_name:"",helper_contact:""},
-    {id:4,name:"Sneha",room:"D-108",contact:"9123456789",items:"1 coffee and 1 samosa from Nescafe counter",tip:10,status:"Open",sid:"seed4",helper_name:"",helper_contact:""},
-    {id:5,name:"Karthik",room:"A-401",contact:"9876501234",items:"Bring my charger from Room B-203 (door is open, on the desk)",tip:0,status:"Open",sid:"seed5",helper_name:"",helper_contact:""}
+let sid=sessionStorage.getItem('ur_sid');
+if(!sid){sid=Date.now().toString();sessionStorage.setItem('ur_sid',sid);}
+if(!localStorage.getItem('ur_reqs')){
+  localStorage.setItem('ur_reqs',JSON.stringify([
+    {id:1,name:"Rahul",room:"A-105",contact:"9876543210",items:"2 bottles of water and 1 packet of Maggi from canteen",tip:20,status:"Open",sid:"s1",hn:"",hc:""},
+    {id:2,name:"Priya",room:"C-302",contact:"9812345678",items:"Pick up my laundry from ground floor washing area",tip:15,status:"Open",sid:"s2",hn:"",hc:""},
+    {id:3,name:"Aditya",room:"B-210",contact:"9988776655",items:"Need a printout of 10 pages from Xerox shop near gate",tip:30,status:"Open",sid:"s3",hn:"",hc:""},
+    {id:4,name:"Sneha",room:"D-108",contact:"9123456789",items:"1 coffee and 1 samosa from Nescafe counter",tip:10,status:"Open",sid:"s4",hn:"",hc:""},
+    {id:5,name:"Karthik",room:"A-401",contact:"9876501234",items:"Bring my charger from Room B-203 (door is open, on the desk)",tip:0,status:"Open",sid:"s5",hn:"",hc:""}
   ]));
 }
+function get(){return JSON.parse(localStorage.getItem('ur_reqs')||'[]');}
+function put(r){localStorage.setItem('ur_reqs',JSON.stringify(r));}
+let acceptId=null;
 
-function getRequests(){return JSON.parse(localStorage.getItem('ur_requests')||'[]');}
-function saveRequests(r){localStorage.setItem('ur_requests',JSON.stringify(r));}
+function show(t,el){['home','request','my','open'].forEach(x=>document.getElementById('t-'+x).style.display=x===t?'block':'none');document.querySelectorAll('.tab').forEach(b=>b.classList.remove('active'));if(el)el.classList.add('active');if(t==='my')renderMy();if(t==='open')renderOpen();}
 
-function showTab(t,el){
-  document.querySelectorAll('.tab-content').forEach(c=>c.classList.add('d-none'));
-  document.getElementById('tab-'+t).classList.remove('d-none');
-  document.querySelectorAll('#main-nav .nav-link').forEach(l=>l.classList.remove('active'));
-  if(el)el.classList.add('active');
-  if(t==='my')renderMy();if(t==='open')renderOpen();
-}
-
-function submitRequest(e){
-  e.preventDefault();
-  const r=getRequests();
-  r.push({id:Date.now(),name:document.getElementById('req-name').value,room:document.getElementById('req-room').value,contact:document.getElementById('req-contact').value,items:document.getElementById('req-items').value,tip:+(document.getElementById('req-tip').value||0),status:'Open',sid:sessionId,helper_name:'',helper_contact:''});
-  saveRequests(r);e.target.reset();showToast('Request submitted!');showTab('my',document.querySelector('[onclick*=my]'));
+function submitReq(){
+  const n=document.getElementById('r-name').value,rm=document.getElementById('r-room').value,c=document.getElementById('r-contact').value,it=document.getElementById('r-items').value,tp=+(document.getElementById('r-tip').value||0);
+  if(!n||!rm||!c||!it){toast('Please fill all required fields','#ef4444');return;}
+  const r=get();r.push({id:Date.now(),name:n,room:rm,contact:c,items:it,tip:tp,status:'Open',sid:sid,hn:'',hc:''});put(r);
+  document.getElementById('r-name').value='';document.getElementById('r-room').value='';document.getElementById('r-contact').value='';document.getElementById('r-items').value='';document.getElementById('r-tip').value='';
+  toast('Request submitted!');show('my',document.querySelectorAll('.tab')[2]);
 }
 
 function renderMy(){
-  const list=getRequests().filter(r=>r.sid===sessionId);
-  document.getElementById('my-list').innerHTML=list.length===0?'<div class="card p-4 text-center text-muted">You haven\'t made any requests yet.</div>':list.map(r=>`
-    <div class="card p-4 mb-3 fade-in">
-      <div class="d-flex justify-content-between align-items-start">
-        <div><h6 class="fw-bold mb-1">${r.items}</h6><p class="text-muted small mb-0">Room ${r.room}</p></div>
-        <span class="badge ${r.status==='Open'?'badge-open':'badge-accepted'} rounded-pill">${r.status}</span>
-      </div>
-      ${r.tip>0?`<span class="tip-badge mt-2 d-inline-block">💰 ₹${r.tip} tip</span>`:''}
-      ${r.status==='Accepted'?`<div class="mt-3 p-3 bg-light rounded-3"><p class="small mb-0 fw-medium"><i class="fas fa-user text-primary me-1"></i> Helper: ${r.helper_name}</p><p class="small mb-0 text-muted"><i class="fas fa-phone me-1"></i> ${r.helper_contact}</p></div>`:''}
-    </div>`).join('');
+  const list=get().filter(r=>r.sid===sid);
+  document.getElementById('my-list').innerHTML=list.length?list.map(r=>'<div class="req-card"><div class="req-header"><div><div class="req-items">'+r.items+'</div><div class="req-meta">📍 Room '+r.room+'</div></div><span class="badge '+(r.status==='Open'?'badge-open':'badge-accepted')+'">'+r.status+'</span></div>'+(r.tip>0?'<span class="tip-badge">💰 ₹'+r.tip+' tip</span>':'')+(r.status==='Accepted'?'<div class="helper-info"><strong>✅ Helper:</strong> '+r.hn+' (📞 '+r.hc+')</div>':'')+'</div>').join(''):'<div class="empty">You haven\'t made any requests yet.</div>';
 }
 
 function renderOpen(){
-  const list=getRequests().filter(r=>r.status==='Open'&&r.sid!==sessionId);
-  document.getElementById('open-list').innerHTML=list.length===0?'<div class="card p-4 text-center text-muted">No open requests right now.</div>':list.map(r=>`
-    <div class="card p-4 mb-3 fade-in">
-      <div class="d-flex justify-content-between align-items-start">
-        <div>
-          <h6 class="fw-bold mb-1">${r.items}</h6>
-          <p class="text-muted small mb-1"><i class="fas fa-user me-1"></i>${r.name} · <i class="fas fa-door-open me-1"></i>Room ${r.room}</p>
-        </div>
-        ${r.tip>0?`<span class="tip-badge">💰 ₹${r.tip}</span>`:''}
-      </div>
-      <button class="btn btn-amber btn-sm mt-2" onclick="openAccept(${r.id},'${r.items.replace(/'/g,"\\'")}')">Accept Request</button>
-    </div>`).join('');
+  const list=get().filter(r=>r.status==='Open'&&r.sid!==sid);
+  document.getElementById('open-list').innerHTML=list.length?list.map(r=>'<div class="req-card"><div class="req-header"><div><div class="req-items">'+r.items+'</div><div class="req-meta">👤 '+r.name+' · 📍 Room '+r.room+'</div></div>'+(r.tip>0?'<span class="tip-badge">💰 ₹'+r.tip+'</span>':'')+'</div><button class="accept-btn" onclick="openAccept('+r.id+',\''+r.items.replace(/'/g,"\\'")+'\')">✋ Accept Request</button></div>').join(''):'<div class="empty">No open requests right now. Check back later!</div>';
 }
 
-function openAccept(id,desc){
-  document.getElementById('accept-id').value=id;
-  document.getElementById('accept-desc').textContent='You are accepting: "'+desc+'"';
-  new bootstrap.Modal(document.getElementById('acceptModal')).show();
+function openAccept(id,desc){acceptId=id;document.getElementById('accept-desc').textContent='You are accepting: "'+desc+'"';document.getElementById('accept-modal').classList.add('show');}
+function closeAccept(){document.getElementById('accept-modal').classList.remove('show');acceptId=null;}
+function confirmAccept(){
+  const hn=document.getElementById('h-name').value,hc=document.getElementById('h-contact').value;
+  if(!hn||!hc){toast('Please fill both fields','#ef4444');return;}
+  const r=get();const req=r.find(x=>x.id===acceptId);
+  if(req){req.status='Accepted';req.hn=hn;req.hc=hc;put(r);}
+  document.getElementById('h-name').value='';document.getElementById('h-contact').value='';
+  closeAccept();toast('Request accepted!');renderOpen();
 }
 
-function confirmAccept(e){
-  e.preventDefault();
-  const id=+document.getElementById('accept-id').value;
-  const r=getRequests();const req=r.find(x=>x.id===id);
-  if(req){req.status='Accepted';req.helper_name=document.getElementById('helper-name').value;req.helper_contact=document.getElementById('helper-contact').value;saveRequests(r);}
-  bootstrap.Modal.getInstance(document.getElementById('acceptModal')).hide();
-  e.target.reset();showToast('Request accepted!');renderOpen();
-}
-
-function showToast(msg){
-  document.getElementById('toast-msg').textContent=msg;
-  new bootstrap.Toast(document.getElementById('toast'),{delay:3000}).show();
-}
+function toast(m,c){const t=document.getElementById('toast');t.textContent='✓ '+m;t.style.background=c||'#16a34a';t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
 </script>
 </body>
 </html>
